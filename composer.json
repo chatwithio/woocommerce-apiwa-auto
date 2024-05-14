@@ -1,0 +1,30 @@
+{
+	"name": "tochat.be/woocommerce-apiwa-auto",
+	"type": "wp-plugin",
+	"license": "GPL-3.0-or-later",
+	"minimum-stability": "stable",
+	"prefer-stable": true,
+	"require-dev": {
+		"squizlabs/php_codesniffer": "*",
+		"wp-coding-standards/wpcs": "^3.0",
+		"phpcompatibility/phpcompatibility-wp": "*",
+		"dealerdirect/phpcodesniffer-composer-installer": "*",
+		"woocommerce/woocommerce-sniffs": "*",
+		"automattic/vipwpcs": "*"
+	},
+	"scripts": {
+		"phpcs": "vendor/bin/phpcs -p",
+		"phpcbf": "vendor/bin/phpcbf -p"
+	},
+	"extra": {
+		"scripts-description": {
+			"phpcs": "Analyze code against the WordPress coding standards with PHP_CodeSniffer",
+			"phpcbf": "Fix coding standards warnings/errors automatically with PHP Code Beautifier"
+		}
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	}
+}

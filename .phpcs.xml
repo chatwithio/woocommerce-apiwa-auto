@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<ruleset name="Coding Standards">
+	<description>PHP_CodeSniffer ruleset.</description>
+
+	<!-- Set the memory limit to 256M.
+		 For most standard PHP configurations, this means the memory limit will temporarily be raised.
+		 Ref: https://github.com/squizlabs/PHP_CodeSniffer/wiki/Advanced-Usage#specifying-phpini-settings
+	-->
+	<ini name="memory_limit" value="256M" />
+
+	<!-- Whenever possible, cache the scan results and re-use those for unchanged files on the next scan. -->
+	<arg name="cache" />
+
+	<!-- Strip the filepaths down to the relevant bit. -->
+	<arg name="basepath" value="./" />
+
+	<!-- Check up to 20 files simultaneously. -->
+	<arg name="parallel" value="20" />
+
+	<!-- Show sniff codes in all reports. -->
+	<arg value="ps" />
+
+	<!-- Show progress of the run. -->
+	<arg name="colors" />
+
+	<!-- Only sniff PHP files. -->
+	<arg name="extensions" value="php" />
+
+	<!-- https://github.com/PHPCompatibility/PHPCompatibilityWP -->
+	<rule ref="PHPCompatibilityWP" />
+
+	<!-- Use WordPress Coding Standards. -->
+	<rule ref="WordPress" />
+
+	<!-- Use WordPress "Core" Coding Standards. -->
+	<rule ref="WordPress-Core" />
+
+	<!-- Use WordPress "Docs" Coding Standards. -->
+	<rule ref="WordPress-Docs" />
+
+	<!-- Use WordPress "Extra" Coding Standards. -->
+	<rule ref="WordPress-Extra" />
+
+	<!-- Use WWooCommerce "Core" Coding Standards. -->
+	<rule ref="WooCommerce-Core" />
+
+	<!-- Use WordPress "VIP" Coding Standards. -->
+	<rule ref="WordPress-VIP-Go" />
+
+	<!-- Use WordPress "VIP Minimum" Coding Standards. -->
+	<rule ref="WordPressVIPMinimum">
+		<exclude name="WordPressVIPMinimum.Performance.RemoteRequestTimeout.timeout_timeout" />
+		<exclude name="WordPressVIPMinimum.Functions.RestrictedFunctions.wp_remote_get_wp_remote_get" />
+	</rule>
+
+	<!-- Verify that the text_domain is set to the desired text-domain.
+		Multiple valid text domains can be provided as a comma-delimited list. -->
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array" value="wooawa" />
+		</properties>
+	</rule>
+
+	<!-- Rules: WordPress Coding Standards -->
+	<!-- https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards -->
+	<!-- https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/wiki/Customizable-sniff-properties -->
+	<config name="minimum_wp_version" value="5.0-" />
+
+	<!-- Rules: Check PHP version compatibility -->
+	<!-- https://github.com/PHPCompatibility/PHPCompatibility#sniffing-your-code-for-compatibility-with-specific-php-versions -->
+	<config name="testVersion" value="5.6-" />
+
+	<!-- Only sniff the plugin. -->
+	<file>./</file>
+
+	<!-- Don't sniff the following directories or file types. -->
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/build/*</exclude-pattern>
+
+</ruleset>

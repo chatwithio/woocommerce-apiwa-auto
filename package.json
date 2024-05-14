@@ -1,0 +1,41 @@
+{
+	"name": "woocommerce-apiwa-auto",
+	"version": "2.0.0",
+	"main": "Gruntfile.js",
+	"author": "tochat.be",
+	"license": "GPL-3.0-or-later",
+	"scripts": {
+		"build": "grunt build",
+		"build:clean": "grunt clean",
+		"build:dev": "grunt dev --dev=true",
+		"build:watch": "grunt watch --dev=true",
+		"lint": "grunt lint",
+		"lint:js": "grunt jshint",
+		"lint:php": "composer run-script phpcs",
+		"lint:php:fix": "composer run-script phpcbf",
+		"lint:sass": "grunt stylelint",
+		"preinstall": "npx only-allow pnpm",
+		"prepare": "husky install"
+	},
+	"devDependencies": {
+		"@wordpress/stylelint-config": "^21.29.0",
+		"grunt": "^1.6.1",
+		"grunt-cli": "^1.4.3",
+		"grunt-contrib-clean": "^2.0.1",
+		"grunt-contrib-compress": "^2.0.0",
+		"grunt-contrib-copy": "^1.0.0",
+		"grunt-contrib-jshint": "^3.2.0",
+		"grunt-contrib-watch": "^1.1.0",
+		"grunt-phpcs": "^0.4.0",
+		"grunt-sass": "^3.1.0",
+		"grunt-stylelint": "^0.19.0",
+		"grunt-wp-i18n": "^1.0.3",
+		"husky": "^8.0.3",
+		"node-sass": "^9.0.0",
+		"pre-commit": "^1.2.2",
+		"stylelint": "^15.11.0"
+	},
+	"pre-commit": [
+		"lint"
+	]
+}

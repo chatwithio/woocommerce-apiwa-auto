@@ -1,0 +1,26 @@
+.wooawa-preview-message {
+	background: #202c33;
+	padding: 4px;
+	border-radius: 8px;
+
+	p {
+		margin: 0;
+		padding: 20px 10px;
+		color: #fff;
+	}
+}
+
+.wooawa-template-selector {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	flex-wrap: wrap;
+
+	p {
+		margin-bottom: 10px !important;
+	}
+
+	label {
+		width: 30%;
+	}
+}

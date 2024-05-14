@@ -1,0 +1,28 @@
+# Node Modules
+node_modules/
+
+# Node Package Dependencies
+package-lock.json
+
+# PNPM
+pnpm-lock.yaml
+
+# Composer
+vendor/
+composer.lock
+
+# Editors
+.idea
+.vscode
+
+# Language files
+languages/*.pot
+
+# macOS
+.DS_Store
+
+# Build
+build/
+assets/css/**/*.css
+assets/css/**/*.css.map
+
