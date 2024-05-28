@@ -41,6 +41,7 @@ class WOOAWA_Send {
 	public function send_message( $order_id, $old_status, $new_status ) {
 		$order              = wc_get_order( $order_id );
 		$billing_phone      = $order->get_billing_phone();
+		$billing_country    = $order->get_billing_country();
 		$business_name      = get_option( 'wooawa_business_name' );
 		$brand_logo_url     = get_option( 'wooawa_brand_logo_url' );
 		$brand_phone_number = get_option( 'wooawa_phone_number' );
@@ -50,7 +51,12 @@ class WOOAWA_Send {
 			return;
 		}
 
-		$phone_number = preg_replace( '/^(\+|0|00)/', '', $billing_phone );
+		if ( $billing_country ) {
+			$phone_number = wooawa_get_formatted_whatsapp_number( $billing_phone, $billing_country );
+		} else {
+			$phone_number = $billing_phone;
+		}
+
 		$message_args = array(
 			'language_code' => $language_code,
 			'phone_number'  => $phone_number,

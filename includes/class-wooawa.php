@@ -82,6 +82,9 @@ final class WOOAWA {
 		include_once WOOAWA_PLUGIN_PATH . '/includes/class-wooawa-api.php';
 		include_once WOOAWA_PLUGIN_PATH . '/includes/class-wooawa-send.php';
 
+		// Functions.
+		include_once WOOAWA_PLUGIN_PATH . '/includes/wooawa-functions.php';
+
 		if ( is_admin() ) {
 			include_once WOOAWA_PLUGIN_PATH . '/includes/admin/class-wooawa-admin-settings.php';
 			include_once WOOAWA_PLUGIN_PATH . '/includes/admin/class-wooawa-admin-scripts.php';
