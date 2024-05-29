@@ -8,7 +8,7 @@
  * Plugin Name:       WooCommerce APIWA AUTO
  * Plugin URI:        #
  * Description:       This plugin is a WooCommerce APIWA AUTO
- * Version:           1.0.0
+ * Version:           1.1.0
  * Requires at least: 5.0
  * Requires PHP:      5.6
  * Author:            tochat.be
@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'WOOAWA_PLUGIN_FILE', __FILE__ );
 define( 'WOOAWA_PLUGIN_PATH', untrailingslashit( plugin_dir_path( WOOAWA_PLUGIN_FILE ) ) );
 define( 'WOOAWA_PLUGIN_URL', untrailingslashit( plugin_dir_url( WOOAWA_PLUGIN_FILE ) ) );
-define( 'WOOAWA_PLUGIN_VERSION', '1.0.0' );
+define( 'WOOAWA_PLUGIN_VERSION', '1.1.0' );
 
 // Include the main plugin class.
 if ( ! class_exists( 'WOOAWA' ) ) {
