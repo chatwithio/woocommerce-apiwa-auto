@@ -80,6 +80,7 @@ final class WOOAWA {
 	public function includes() {
 		include_once WOOAWA_PLUGIN_PATH . '/includes/class-wooawa-install.php';
 		include_once WOOAWA_PLUGIN_PATH . '/includes/class-wooawa-api.php';
+		include_once WOOAWA_PLUGIN_PATH . '/includes/class-wooawa-log.php';
 		include_once WOOAWA_PLUGIN_PATH . '/includes/class-wooawa-send.php';
 
 		// Functions.
@@ -89,6 +90,9 @@ final class WOOAWA {
 			include_once WOOAWA_PLUGIN_PATH . '/includes/admin/class-wooawa-admin-settings.php';
 			include_once WOOAWA_PLUGIN_PATH . '/includes/admin/class-wooawa-admin-scripts.php';
 			include_once WOOAWA_PLUGIN_PATH . '/includes/admin/class-wooawa-admin-menu.php';
+
+			// Tables.
+			include_once WOOAWA_PLUGIN_PATH . '/includes/admin/tables/class-wooawa-admin-log-table.php';
 		}
 	}
 

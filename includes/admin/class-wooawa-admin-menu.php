@@ -44,6 +44,17 @@ class WOOAWA_Admin_Menu {
 			'dashicons-whatsapp',
 			58.9
 		);
+
+		$hook = add_submenu_page(
+			'wooawa',
+			__( 'Logs', 'wooawa' ),
+			__( 'Logs', 'wooawa' ),
+			'manage_options',
+			'wooawa-logs',
+			array( $this, 'admin_logs_page' )
+		);
+
+		add_action( 'load-' . $hook, array( $this, 'load_logs_page' ) );
 	}
 
 	/**
@@ -55,6 +66,37 @@ class WOOAWA_Admin_Menu {
 	 */
 	public function admin_settings_page() {
 		require_once WOOAWA_PLUGIN_PATH . '/includes/admin/views/html-admin-settings.php';
+	}
+
+	/**
+	 * Admin logs page.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @return void
+	 */
+	public function admin_logs_page() {
+		require_once WOOAWA_PLUGIN_PATH . '/includes/admin/views/html-admin-logs.php';
+	}
+
+	/**
+	 * Load logs page.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @return void
+	 */
+	public function load_logs_page() {
+		add_screen_option(
+			'per_page',
+			array(
+				'label'   => esc_html__( 'Logs per page:', 'wooawa' ),
+				'default' => 40,
+				'option'  => 'wooawa_logs_per_page',
+			)
+		);
+
+		new WOOAWA_Admin_Log_Table();
 	}
 }
 

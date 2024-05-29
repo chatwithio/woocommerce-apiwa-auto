@@ -38,7 +38,7 @@ class WOOAWA_Api {
 	 * @param string $order_status The order status.
 	 * @param array  $args         Additional arguments for the message.
 	 *
-	 * @return mixed The response body if successful, false otherwise.
+	 * @return array|WP_Error The response from the API, or a WP_Error object on failure.
 	 */
 	public static function send_message( $order_status, $args ) {
 		$template = '';
@@ -59,7 +59,16 @@ class WOOAWA_Api {
 		}
 
 		if ( ! $template ) {
-			return false;
+			return new WP_Error(
+				'invalid_order_status',
+				wp_kses_post(
+					wp_sprintf(
+						/* Translators: %s: Order status */
+						__( '%s: Order status not found in API templates.', 'wooawa' ),
+						$order_status
+					)
+				)
+			);
 		}
 
 		$language_code = isset( $args['language_code'] ) ? $args['language_code'] : 'en';
@@ -94,11 +103,51 @@ class WOOAWA_Api {
 		);
 
 		if ( is_wp_error( $response ) ) {
-			return false;
+			return $response;
 		}
 
-		$body = wp_remote_retrieve_body( $response );
-		$body = json_decode( $body, true );
+		if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
+			return new WP_Error(
+				'api_error',
+				wp_kses_post(
+					wp_sprintf(
+						/* Translators: %s: API response message */
+						__( 'API error: %s', 'wooawa' ),
+						wp_remote_retrieve_response_message( $response )
+					)
+				)
+			);
+		}
+
+		$body = json_decode( wp_remote_retrieve_body( $response ), true );
+		if ( empty( $body ) ) {
+			return new WP_Error( 'api_error', esc_html__( 'API error: Empty API response.', 'wooawa' ) );
+		}
+
+		if ( ! isset( $body['status'] ) ) {
+			return new WP_Error( 'api_error', esc_html__( 'API error: No status found in API response.', 'wooawa' ) );
+		}
+
+		if ( ! isset( $body['message'] ) ) {
+			return new WP_Error( 'api_error', esc_html__( 'API error: No message found in API response.', 'wooawa' ) );
+		}
+
+		if ( ! $body['status'] ) {
+			$message = json_decode( $body['message'] );
+			$code    = isset( $message->errors[0]->code ) ? $message->errors[0]->code : '';
+			$details = isset( $message->errors[0]->details ) ? $message->errors[0]->details : '';
+
+			return new WP_Error(
+				$code,
+				wp_kses_post(
+					wp_sprintf(
+						/* Translators: %s: API error details */
+						__( 'API error: %s', 'wooawa' ),
+						$details
+					)
+				)
+			);
+		}
 
 		return $body;
 	}

@@ -26,10 +26,44 @@ class WOOAWA_Install {
 	 * @return void
 	 */
 	public static function install() {
+		self::create_tables();
 		self::add_settings();
 
 		// Update current version.
 		update_option( 'wooawa_db_version', WOOAWA_PLUGIN_VERSION );
+	}
+
+	/**
+	 * Create plugin tables.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @return void
+	 */
+	public static function create_tables() {
+		global $wpdb;
+
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+
+		$tables          = array();
+		$charset_collate = $wpdb->get_charset_collate();
+
+		$tables['wooawa_logs'] = "CREATE TABLE {$wpdb->prefix}wooawa_logs (
+			`id` BIGINT NOT NULL AUTO_INCREMENT ,
+			`type` VARCHAR(32) NULL DEFAULT NULL ,
+			`subject` VARCHAR(255) NULL DEFAULT NULL ,
+			`log` LONGTEXT NULL DEFAULT NULL ,
+			`created_at` DATETIME NULL DEFAULT NULL ,
+			PRIMARY KEY (`id`)
+		) $charset_collate;";
+
+		// phpcs:disable WordPress.DB
+		foreach ( $tables as $table => $sql ) {
+			if ( ! $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}{$table}'" ) ) {
+				dbDelta( $sql );
+			}
+		}
+		// phpcs:enable
 	}
 
 	/**

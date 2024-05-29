@@ -24,3 +24,26 @@
 		width: 30%;
 	}
 }
+
+// Pills.
+.wooawa-pill {
+	display: inline-block;
+	padding: 5px 10px;
+	border-radius: 20px;
+	background: #202c33;
+	color: #fff;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	transition: all 0.3s ease;
+	user-select: none;
+
+	&--success {
+		background: #c8e6c9;
+		color: #1b5e20;
+	}
+
+	&--error {
+		background: #ffcdd2;
+		color: #b71c1c;
+	}
+}

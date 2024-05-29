@@ -37,7 +37,7 @@ class WOOAWA_Admin_Scripts {
 	 */
 	public function admin_enqueue_scripts( $hook ) {
 		// Check if we are on the plugin page.
-		if ( 'toplevel_page_wooawa' !== $hook ) {
+		if ( 'toplevel_page_wooawa' !== $hook && 'api-wa-auto_page_wooawa-logs' !== $hook ) {
 			return;
 		}
 
